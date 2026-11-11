@@ -1,0 +1,9 @@
+{
+  "name": "photowalk",
+  "version": "1.0.0",
+  "description": "Walk a cartoon town in first person, snap photos, and see others' photos float where they were taken.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
