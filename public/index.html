@@ -941,6 +941,7 @@ function addPhoto(p) {
   const e = { p, x: fx, z: fz, img: null, mesh: null, hero: null, s: 0, v: 0, delay: 0, ready: false, phase: R() * 6 };
   photos.set(p.id, e);
   const img = new Image();
+  img.crossOrigin = 'anonymous'; // photos may live on a storage domain (Vercel Blob)
   img.onload = () => {
     e.img = img;
     e.mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, fog: false }));
@@ -1246,7 +1247,8 @@ $('file').onchange = () => {
 $('cancel').onclick = () => { pending = null; closeModals(); };
 async function postPhoto(body) {
   const r = await fetch('/api/photos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  if (!r.ok) throw new Error('save failed'); return r.json();
+  if (!r.ok) { let msg = 'Saving failed'; try { msg = (await r.json()).error || msg; } catch {} throw new Error(msg); }
+  return r.json();
 }
 $('save').onclick = async () => {
   if (!pending) return;
@@ -1256,7 +1258,7 @@ $('save').onclick = async () => {
   try {
     addPhoto(await postPhoto({ image: pending.image, x: pending.x, z: pending.z, yaw: pending.yaw, caption: $('caption').value.trim(), author }));
     pending = null; closeModals(); toast('📌 Pinned! It now floats here for everyone.');
-  } catch { toast('Saving failed — is the server running?'); }
+  } catch (err) { toast(err.message && err.message !== 'Failed to fetch' ? err.message : 'Saving failed — is the server running?'); }
   $('save').disabled = false;
 };
 

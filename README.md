@@ -15,6 +15,15 @@ No `npm install` needed: the server has zero dependencies, and three.js loads fr
 
 Want to see busy tourist spots right away? Open http://localhost:3000/?demo=1 once and it fills the valley with ~37 demo photos.
 
+## Deploy on Vercel
+
+1. Import this repo in Vercel (framework preset: **Other**, no build command needed).
+2. In the project, open **Storage → Create → Blob**, and connect the store to the project
+   (this adds the `BLOB_READ_WRITE_TOKEN` environment variable).
+3. Redeploy. The page is served from `public/`, and photos/likes go through the functions in `api/`.
+
+`server.js` is only for running locally and is not deployed (see `.vercelignore`).
+
 ## The valley
 
 Waterfall with a rainbow, a lake with a dock, rowboat and ducks, a river with an arched bridge, a cherry blossom grove,

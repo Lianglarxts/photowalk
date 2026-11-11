@@ -1,9 +1,15 @@
 {
   "name": "photowalk",
   "version": "1.0.0",
-  "description": "Walk a cartoon town in first person, snap photos, and see others' photos float where they were taken.",
+  "description": "Walk a cartoon valley in first person and pin photos that float AR-style where they were taken.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.9.0"
   }
 }
