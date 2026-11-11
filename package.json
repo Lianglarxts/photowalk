@@ -2,7 +2,6 @@
   "name": "photowalk",
   "version": "1.0.0",
   "description": "Walk a cartoon valley in first person and pin photos that float AR-style where they were taken.",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
